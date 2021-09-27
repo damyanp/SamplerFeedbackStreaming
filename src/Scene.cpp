@@ -1341,7 +1341,54 @@ void Scene::Animate()
     }
 
     // animate camera
-    if (m_args.m_cameraAnimationRate)
+    if (m_args.m_cameraTour && m_objects.size() > 1)
+    {
+        // Start a new trip
+        if (m_currentTourMu >= 1.0f)
+        {
+            m_currentTourStart = m_currentTourEnd;
+            m_currentTourStartQuat = m_currentTourEndQuat;
+
+            m_currentTourFocusObjectIndex = (m_currentTourFocusObjectIndex + 1) % m_objects.size();
+
+            auto &matrix = m_objects[m_currentTourFocusObjectIndex]->GetModelMatrix();
+            XMVECTOR scale, rotQuat, trans;
+            XMMatrixDecompose(&scale, &rotQuat, &trans, matrix);
+
+            m_currentTourEnd = trans + scale * 2;
+
+            auto lookTo = XMMatrixLookAtLH(m_currentTourEnd, m_currentTourStart, XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f));
+            // auto lookTo = XMMatrixLookToLH(
+            //     XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f),
+            //     trans - m_currentTourStart,
+            //     XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f));
+            //m_currentTourEndQuat = XMQuaternionRotationMatrix(lookTo);
+
+            m_currentTourMu = 0.0f;
+        }
+
+        float moveMu = std::cos(m_currentTourMu * DirectX::XM_PI);
+        XMVECTOR pos = XMVectorLerp(m_currentTourStart, m_currentTourEnd, moveMu);
+
+        float rotMu = 1.0f - std::cos(m_currentTourMu * DirectX::XM_PI);
+        //rotMu = 1.0f;
+        XMVECTOR quat = XMQuaternionSlerp(m_currentTourStartQuat, m_currentTourEndQuat, rotMu);
+
+        //m_viewMatrix = XMMatrixTranslationFromVector(pos) * XMMatrixRotationQuaternion(quat);
+        m_viewMatrix = XMMatrixRotationQuaternion(quat) * XMMatrixTranslationFromVector(pos);
+
+        // XMVECTOR lookAt = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
+        // XMVECTOR lookTo = XMVector3Normalize(pos - lookAt);
+        // XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
+
+        // m_viewMatrix = XMMatrixLookToLH(pos, lookTo, up);
+
+        XMVECTOR pDet;
+        m_viewMatrixInverse = XMMatrixInverse(&pDet, m_viewMatrix);
+
+        m_currentTourMu += m_args.m_cameraAnimationRate * 0.01f;
+    }
+    else if (m_args.m_cameraAnimationRate)
     {
         m_args.m_cameraUpLock = false;
 

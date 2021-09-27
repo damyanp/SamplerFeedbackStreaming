@@ -46,6 +46,7 @@ struct CommandLineArgs
 
     bool m_startFullScreen{ false };
     bool m_cameraRollerCoaster{ false };
+    bool m_cameraTour{false};
     bool m_cameraPaintMixer{ false };
 
     bool m_updateEveryObjectEveryFrame{ false };

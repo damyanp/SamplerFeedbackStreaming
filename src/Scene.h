@@ -254,4 +254,14 @@ private:
 
     void StartScene();
     void DrawUI(float in_cpuProcessFeedbackTime);
+
+    //-----------------------------------
+    // "Tour" mode
+    //-----------------------------------
+    size_t m_currentTourFocusObjectIndex{0};
+    DirectX::XMVECTOR m_currentTourStart;
+    DirectX::XMVECTOR m_currentTourEnd;
+    DirectX::XMVECTOR m_currentTourStartQuat;
+    DirectX::XMVECTOR m_currentTourEndQuat{DirectX::XMQuaternionIdentity()};
+    float m_currentTourMu{1.0f};
 };
