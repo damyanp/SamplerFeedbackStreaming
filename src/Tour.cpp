@@ -20,7 +20,8 @@ XMMATRIX Tour::Update(std::vector<SceneObjects::BaseObject *> const &objects, fl
     index[2] = (index[1] + 1) % m_stops.size();
     index[3] = (index[2] + 1) % m_stops.size();
 
-    float at = std::min(std::max(0.0f, t / 0.6f - 0.2f), 1.0f);
+    float at = std::min(std::max(0.0f, t * 3), 1.0f);
+    t = std::min(std::max(0.0f, t * 1.5f - 0.2f), 1.0f);
 
     float st = (std::sin(t * XM_PI - XM_PIDIV2) + 1) / 2;
     float sat = (std::sin(at * XM_PI - XM_PIDIV2) + 1) / 2;
@@ -74,7 +75,7 @@ void Tour::UpdateRoute(std::vector<SceneObjects::BaseObject *> const &objects)
             toLastPos = XMVectorSet(1, 0, 0, 0);
         }
 
-        XMVECTOR newPos = p.Pos + (toLastPos * p.Scale * 3);
+        XMVECTOR newPos = p.Pos - (toLastPos * p.Scale * 3);
 
         XMMATRIX m = XMMatrixLookAtLH(newPos, p.Pos, XMVectorSet(0, 1, 0, 0));
 

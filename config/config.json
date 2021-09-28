@@ -7,7 +7,7 @@
   "lodBias": 0, // sampler bias. positive is blurrier
   "anisotropy": 4, // sampler anisotropy
 
-  "adapter": "", // in a multi-adapter system, searches description for substring ignoring case e.g. "intel"
+  "adapter": "nvidia", // in a multi-adapter system, searches description for substring ignoring case e.g. "intel"
 
   "animationrate": 1, // rotation of individual objects
   "cameraRate": 1, // camera motion rate
