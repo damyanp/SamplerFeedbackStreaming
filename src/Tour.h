@@ -9,7 +9,7 @@ class Tour
     struct Stop
     {
         DirectX::XMVECTOR Pos;
-        DirectX::XMVECTOR Quat;
+        DirectX::XMVECTOR Target;
     };
 
     std::vector<Stop> m_stops;
