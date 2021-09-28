@@ -222,9 +222,12 @@ private:
     DirectX::XMMATRIX SetSphereMatrix();
     void LoadSpheres(); // progressively over multiple frames
 
+    std::unique_ptr<class Tour> m_pTour;
+
     // each frame, update objects until timeout reached
     UINT m_queueFeedbackIndex; // index based on number of gpu feedback resolves per frame
     std::vector<UINT> m_prevNumFeedbackObjects; // to correlate # objects with feedback time
+
 
     //-----------------------------------
     // statistics gathering

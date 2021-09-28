@@ -96,6 +96,7 @@
     <ClCompile Include="FrustumViewer.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="Tour.cpp" />
     <ClCompile Include="winMain.cpp">
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp17</LanguageStandard>
     </ClCompile>
@@ -132,6 +133,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SharedConstants.h" />
     <ClInclude Include="TextureViewer.h" />
+    <ClInclude Include="Tour.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="TextureViewer.hlsl">

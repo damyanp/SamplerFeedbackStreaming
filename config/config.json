@@ -9,16 +9,17 @@
 
   "adapter": "", // in a multi-adapter system, searches description for substring ignoring case e.g. "intel"
 
-  "animationrate": 0, // rotation of individual objects
-  "cameraRate": 0, // camera motion rate
+  "animationrate": 1, // rotation of individual objects
+  "cameraRate": 1, // camera motion rate
   "rollerCoaster": false, // fly through, vs. orbiting, planets
+  "tour": true, // visit all the planets
 
   "mediaDir": "media", // media directory
   "texture": "", // setting this overrides all textures, invalidates mediadir
   "skyTexture": "", // add a sky sphere. path relative to mediadir
   "earthTexture": "", // when this texture is encountered, treat it as spherically projected (no uv mirror)
   "maxNumObjects": 985, // maximum total number of objects in the scene
-  "numSpheres": 0, // number of objects besides the terrain
+  "numSpheres": 100, // number of objects besides the terrain
   "lightFromView": false, // light direction is look direction
 
   // sphere geometry

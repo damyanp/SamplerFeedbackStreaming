@@ -34,6 +34,7 @@
 #include "TextureViewer.h"
 #include "BufferViewer.h"
 #include "FrustumViewer.h"
+#include "Tour.h"
 
 #include "WindowCapture.h"
 
@@ -84,6 +85,7 @@ Scene::Scene(const CommandLineArgs& in_args, HWND in_hwnd) :
     , m_pMinMipMapViewer(nullptr)
     , m_pFeedbackViewer(nullptr)
     , m_pFrustumViewer(nullptr)
+    , m_pTour(std::make_unique<Tour>())
 
     // thread
     , m_queueFeedbackIndex(0)
@@ -1365,7 +1367,11 @@ void Scene::Animate()
         float y = 2 * radius * std::cos(theta / 4);
         float z = radius * std::sin(theta);
 
-        if (m_args.m_cameraRollerCoaster)
+        if (m_args.m_cameraTour)
+        {
+            m_viewMatrix = m_pTour->Update(m_objects, m_args.m_cameraAnimationRate);
+        }
+        else if (m_args.m_cameraRollerCoaster)
         {
             static XMVECTOR previous = XMVectorSet(0, 0, 0, 0);
             XMVECTOR pos = XMVectorSet(x * std::sin(theta / 4), y / 2, z / 3, 1);

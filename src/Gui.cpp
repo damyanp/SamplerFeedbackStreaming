@@ -296,6 +296,7 @@ void Gui::Draw(ID3D12GraphicsCommandList* in_pCommandList,
     ImGui::SliderFloat("Spin", &in_args.m_animationRate, 0, 2.0f);
     ImGui::SliderFloat("Camera", &in_args.m_cameraAnimationRate, 0, 2.0f);
     ImGui::Checkbox("Roller Coaster (when camera > 0)", &in_args.m_cameraRollerCoaster);
+    ImGui::Checkbox("Tour (when camera > 0)", &in_args.m_cameraTour);
 
     ImGui::SliderFloat("Bias", &in_args.m_lodBias, -2.0f, 4.0f);
 

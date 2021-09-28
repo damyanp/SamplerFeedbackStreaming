@@ -170,6 +170,7 @@ void ParseCommandLine(CommandLineArgs& out_args)
 
     argParser.AddArg(L"-cameraRate", out_args.m_cameraAnimationRate);
     argParser.AddArg(L"-rollerCoaster", out_args.m_cameraRollerCoaster);
+    argParser.AddArg(L"-tour", out_args.m_cameraTour);
     argParser.AddArg(L"-paintMixer", out_args.m_cameraPaintMixer);
 
     argParser.AddArg(L"-visualizeMinMip", [&](std::wstring) { out_args.m_visualizeMinMip = true; });
@@ -446,6 +447,7 @@ void LoadConfigFile(CommandLineArgs& out_args)
                 if (root.isMember("animationrate")) out_args.m_animationRate = root["animationrate"].asFloat();
                 if (root.isMember("cameraRate")) out_args.m_cameraAnimationRate = root["cameraRate"].asFloat();
                 if (root.isMember("rollerCoaster")) out_args.m_cameraRollerCoaster = root["rollerCoaster"].asBool();
+                if (root.isMember("tour")) out_args.m_cameraTour = root["tour"].asBool();
                 if (root.isMember("paintMixer")) out_args.m_cameraRollerCoaster = root["paintMixer"].asBool();
 
                 if (root.isMember("texture")) out_args.m_textureFilename = StrToWstr(root["texture"].asString());
