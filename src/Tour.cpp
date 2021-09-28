@@ -10,6 +10,9 @@ XMMATRIX Tour::Update(std::vector<SceneObjects::BaseObject *> const &objects, fl
 {
     UpdateRoute(objects);
 
+    if (m_stops.empty())
+        return XMMatrixIdentity();
+
     m_mu += delta * 0.01f;
 
     size_t index[4];
