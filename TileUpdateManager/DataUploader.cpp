@@ -123,20 +123,21 @@ void Streaming::DataUploader::StartThreads()
     ASSERT(false == m_threadsRunning);
     m_threadsRunning = true;
 
-    m_submitThread = std::thread([&]
+    m_submitThread = std::thread([&] {
+        SetThreadDescription(GetCurrentThread(), L"Submit");
+        DebugPrint(L"Created Submit Thread\n");
+        while (m_threadsRunning)
         {
-            DebugPrint(L"Created Submit Thread\n");
-            while (m_threadsRunning)
-            {
-                m_submitFlag.Wait();
-                SubmitThread();
-            }
-            DebugPrint(L"Destroyed Submit Thread\n");
-        });
+            m_submitFlag.Wait();
+            SubmitThread();
+        }
+        DebugPrint(L"Destroyed Submit Thread\n");
+    });
 
     // launch thread to monitor fences
     m_fenceMonitorThread = std::thread([&]
         {
+        SetThreadDescription(GetCurrentThread(), L"Fence Monitor");
             DebugPrint(L"Created Fence Monitor Thread\n");
             while (m_threadsRunning)
             {

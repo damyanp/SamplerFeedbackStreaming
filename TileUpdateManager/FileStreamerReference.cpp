@@ -73,6 +73,7 @@ Streaming::FileStreamerReference::FileStreamerReference(ID3D12Device* in_pDevice
     m_copyThreadRunning = true;
     m_copyThread = std::thread([&]
         {
+            SetThreadDescription(GetCurrentThread(), L"Copy");
             DebugPrint(L"Created Copy Thread\n");
             while (m_copyThreadRunning)
             {

@@ -164,6 +164,8 @@ void TileUpdateManager::StartThreads()
 
     m_processFeedbackThread = std::thread([&]
         {
+            SetThreadDescription(GetCurrentThread(), L"Feedback");
+
             DebugPrint(L"Created Feedback Thread\n");
 
             // NOTE: expects the streaming resource array size to be unchanged during thread lifetime
@@ -260,6 +262,7 @@ void TileUpdateManager::StartThreads()
 
     m_updateResidencyThread = std::thread([&]
         {
+            SetThreadDescription(GetCurrentThread(), L"UpdateResidency");
             DebugPrint(L"Created UpdateResidency Thread\n");
             // continuously modify residency maps as a result of gpu completion events
             // FIXME? probably not enough work to deserve it's own thread
